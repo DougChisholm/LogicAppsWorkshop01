@@ -1,10 +1,12 @@
 # Logic Apps Workshop 01
 
-Step 1: Create a resource group in Azure called "rg-logic-apps-workshop"
-Step 2: Install Azure CLI 
-Step 3: Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create two storage accounts and logic app(s)
-Step 4: Use Azure portal to add functionality to the Logic App
-Step 5: Use GitHub
+This workshop shows how to use Azure Logic Apps to transform and transfer files from Azure Storage Accounts. It also includes optional elements to understand the power of Infrasctructure as Code, CICD and Azure AI Foundry for modernising legacy workflows.
+
+- Create a resource group in Azure called "rg-logic-apps-workshop"
+- Install Azure CLI 
+- Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create two storage accounts and logic app(s)
+- Use Azure portal to add functionality to the Logic App
+- Use GitHub
 
 ## Install Azure CLI from terminal:
 Windows: winget install --exact --id Microsoft.AzureCLI (then restart terminal)
