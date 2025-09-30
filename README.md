@@ -5,8 +5,7 @@ This workshop shows how to use Azure Logic Apps to transform and transfer files 
 - Create a resource group in Azure called "rg-logic-apps-workshop"
 - Install Azure CLI 
 - Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create two storage accounts and logic app(s)
-- Use Azure portal to add functionality to the Logic App
-- Use GitHub
+- Use Azure extension in VS Code to deploy the Logic App Workflow JSON to the Logic App
 
 ## Install Azure CLI from terminal:  
 Windows: winget install --exact --id Microsoft.AzureCLI (then restart terminal)  
@@ -45,3 +44,13 @@ az deployment group create --resource-group "rg-logic-apps-workshop" --template-
 ```
 
 Both create **General Purpose v2** accounts with Blob, File, Queue, and Table storage. ✨
+
+### ⚡ Logic App (Consumption Plan)
+**File:** `simple-logicapp.bicep` (17 lines)
+- Consumption-based pricing (pay-per-execution)
+- Empty workflow ready for customization
+
+**Deploy:**
+```bash
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-logicapp.bicep" --parameters logicAppName="mylogicapp$(date +%s)"
+```
