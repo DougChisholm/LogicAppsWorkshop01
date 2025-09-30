@@ -8,8 +8,8 @@ This workshop shows how to use Azure Logic Apps to transform and transfer files 
 - Use Azure portal to add functionality to the Logic App
 - Use GitHub
 
-## Install Azure CLI from terminal:
-Windows: winget install --exact --id Microsoft.AzureCLI (then restart terminal)
+## Install Azure CLI from terminal:  
+Windows: winget install --exact --id Microsoft.AzureCLI (then restart terminal)  
 Mac: brew update && brew install azure-cli
 
 Windows:
