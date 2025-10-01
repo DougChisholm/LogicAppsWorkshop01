@@ -1,0 +1,14 @@
+            - name: Email Sender
+  # You may pin to the exact commit or the version.
+  # uses: wesdevteam/maileraction@29267ae03360b8c8fb932042d919bb451bb018cc
+  uses: wesdevteam/maileraction@v1.2.3
+  with:
+    # Recipient email address
+    to: dchisholm@microsoft.com
+    # Email subject
+    subject: Code update - ship it to Azure
+    # Plain text message
+    text: Code update - ship it to Azure
+    # HTML message (optional)
+    html: # optional
+          
