@@ -67,6 +67,3 @@ az deployment group create --resource-group "rg-logic-apps-workshop" --template-
 ```bash
 az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-logicapp.bicep" --parameters logicAppName="mylogicapp01"
 ```
-
-### Prompt to rename file using Azure OpenAI
-"Create a three word string that summarises the contents of this file". 
