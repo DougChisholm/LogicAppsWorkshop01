@@ -1,4 +1,4 @@
-name: CI Pipeline  # or whatever name you want
+name: ExampleWorkflow
 
 on:
   push:
