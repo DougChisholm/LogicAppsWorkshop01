@@ -1,4 +1,4 @@
-param storageAccountName string
+param storageAccountName string = 'privatestorageguid123'
 param location string = resourceGroup().location
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
@@ -11,6 +11,13 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
   properties: {
     supportsHttpsTrafficOnly: true
     publicNetworkAccess: 'Disabled'
+  }
+}
+
+resource filesContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-01-01' = {
+  name: '${storageAccount.name}/default/files'
+  properties: {
+    publicAccess: 'None'
   }
 }
 

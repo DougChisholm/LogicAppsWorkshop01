@@ -1,6 +1,6 @@
 # Logic Apps Workshop 01
 
-This workshop shows how to use Azure Logic Apps to transform and transfer files from Azure Storage Accounts. It also includes optional elements to understand the power of Infrasctructure as Code, CICD and Azure AI Foundry for modernising legacy workflows.
+This workshop shows how to use Azure Logic Apps to transform and transfer files from Azure Storage Accounts. It also includes optional elements to understand the power of Infrasctructure as Code, CICD and Azure AI Foundry for modernising legacy workflows using Generative AI.
 
 - Create a resource group in Azure called "rg-logic-apps-workshop". 
 - Install Azure CLI. 
@@ -8,7 +8,7 @@ This workshop shows how to use Azure Logic Apps to transform and transfer files 
 - Use Azure extension in VS Code to deploy the Logic App Workflow JSON to the Logic App. 
 - Update the Logic apps connectors. 
 - Add a new file to the first storage account and see it trigger the Logic app. 
-- Optional extension: Create a Logic Apps Standard Plan in Azure portal and link to GitHUb for CICD (then change the JSON in workflow and commit to GitHub to deploy)
+- Optional extension: Create a Logic Apps Standard Plan in Azure portal and link to GitHub for CICD (then change the JSON in workflow and commit to GitHub to deploy)
 - Optional extension: Create a Azure AI Foundry Endpoint and an extra step in the workflow to rename the file based on its contents using the prompt below
 
 ## Install Azure CLI from terminal:  
@@ -29,34 +29,43 @@ https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-c
 **Using Terminal, Login to Azure: (or 'az account show' to check if logged in)**
 az login
 
-
 **Deploy:**
 ```bash
 az group create --name "rg-logic-apps-workshop" --location "UK South"
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-storage.bicep" --parameters storageAccountName="mystorageacct$(date +%s)"
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-storage.bicep"
 ```
 
 ### 🔒 Private Storage 
-**File:** `private-storage.bicep` (16 lines)
+**File:** `private-storage.bicep` 
 - Public network access disabled
 - Only accessible via private endpoints or trusted Azure services
 
 **Deploy:**
 ```bash
-az group create --name "rg-workshop" --location "UK South"
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "private-storage.bicep" --parameters storageAccountName="myprivatestg$(date +%s)"
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "private-storage.bicep"
 ```
 
-Both create **General Purpose v2** accounts with Blob, File, Queue, and Table storage. ✨
-
 ### ⚡ Logic App (Consumption Plan)
-**File:** `simple-logicapp.bicep` (17 lines)
-- Consumption-based pricing (pay-per-execution)
-- Empty workflow ready for customization
+**File:** `simple-logicapp.bicep` 
 
-**Deploy:**
+**1. Create resource group:**
 ```bash
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-logicapp.bicep" --parameters logicAppName="mylogicapp$(date +%s)"
+az group create --name "rg-logic-apps-workshop" --location "UK South"
+```
+
+**2. Deploy public storage account:**
+```bash
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-storage.bicep" --name "simple-storage"
+```
+
+**3. Deploy private storage account:**
+```bash
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "private-storage.bicep" --name "private-storage"
+```
+
+**4. Deploy Logic App (empty workflow):**
+```bash
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-logicapp.bicep" --parameters logicAppName="mylogicapp01"
 ```
 
 ### Prompt to rename file using Azure OpenAI
