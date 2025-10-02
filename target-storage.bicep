@@ -1,4 +1,4 @@
-param storageAccountName string = 'publicstorageguid123'
+param storageAccountName string = 'targacguid123dc' // add your initials at end to make unique
 param location string = resourceGroup().location
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
@@ -17,7 +17,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
 resource filesContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-01-01' = {
   name: '${storageAccount.name}/default/files'
   properties: {
-    publicAccess: 'None'
+    // publicAccess: 'Blob'
   }
 }
 

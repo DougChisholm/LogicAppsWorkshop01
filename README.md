@@ -4,12 +4,11 @@ This workshop shows how to use Azure Logic Apps to transform and transfer files 
 
 - Create a resource group in Azure called "rg-logic-apps-workshop". 
 - Install Azure CLI. 
-- Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create two storage accounts and logic app(s). 
-- Use Azure extension in VS Code to deploy the Logic App Workflow JSON to the Logic App. 
-- Update the Logic apps connectors. 
-- Add a new file to the first storage account and see it trigger the Logic app. 
-- Optional extension: Create a Logic Apps Standard Plan in Azure portal and link to GitHub for CICD (then change the JSON in workflow and commit to GitHub to deploy)
-- Optional extension: Create a Azure AI Foundry Endpoint and an extra step in the workflow to rename the file based on its contents using the prompt below
+- Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create two storage accounts.
+- Add RBAC for current Azure user to put a file in on container
+- Create a logic app and use its Managed Identity to give RBAC Contributor rights on both storage accounts
+- Build a logic app workflow as per workflow.png to transfer files
+- Optional extension: Add Azure AI Foundry action to rename the file using the prompt "describe the example file in three words as a suitable file name".
 
 ## Install Azure CLI from terminal:  
 Windows: winget install --exact --id Microsoft.AzureCLI (then restart terminal)  
@@ -21,49 +20,21 @@ https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure
 Mac:
 https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
 
-### 🌐 Public Storage (Default)
-**File:** `simple-storage.bicep` (15 lines)
-- Public network access enabled
-- Accessible from anywhere
-
 **Using Terminal, Login to Azure: (or 'az account show' to check if logged in)**
 az login
 
-**Deploy:**
-```bash
-az group create --name "rg-logic-apps-workshop" --location "UK South"
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-storage.bicep"
-```
-
-### 🔒 Private Storage 
-**File:** `private-storage.bicep` 
-- Public network access disabled
-- Only accessible via private endpoints or trusted Azure services
-
-**Deploy:**
-```bash
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "private-storage.bicep"
-```
-
-### ⚡ Logic App (Consumption Plan)
-**File:** `simple-logicapp.bicep` 
-
-**1. Create resource group:**
+**Deploy resource group:**
 ```bash
 az group create --name "rg-logic-apps-workshop" --location "UK South"
 ```
 
-**2. Deploy public storage account:**
+**Deploy first storage account:**
 ```bash
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-storage.bicep" --name "simple-storage"
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "target-storage.bicep"
 ```
 
-**3. Deploy private storage account:**
+**Deploy second storage account:**
 ```bash
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "private-storage.bicep" --name "private-storage"
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "destination-storage.bicep"
 ```
 
-**4. Deploy Logic App (empty workflow):**
-```bash
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "simple-logicapp.bicep" --parameters logicAppName="mylogicapp01"
-```
