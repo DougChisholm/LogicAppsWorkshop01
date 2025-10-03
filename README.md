@@ -38,10 +38,8 @@ az deployment group create --resource-group "rg-logic-apps-workshop" --template-
 az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "destination-storage.bicep"
 ```
 
-**Deploy third storage account:**
+**Deploy Logic App (Consumption):**
 ```bash
-az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "thirdacc003.bicep" --parameters storageAccountName="dddd"
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "ladctest001.bicep" --parameters workflowName="ladctest001"
 ```
-
-> ℹ️ Storage account names must be globally unique, 3-24 characters, and lowercase letters or numbers only—replace the placeholder before running the command.
 
