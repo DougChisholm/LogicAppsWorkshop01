@@ -4,7 +4,7 @@ This workshop shows how to use Azure Logic Apps to transform and transfer files 
 
 - Create a resource group in Azure called "rg-logic-apps-workshop". 
 - Install Azure CLI. 
-- Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create two storage accounts.
+- Using Bash (for Mac) / PowerShell (for Windows) in the terminal run the commands below to create three storage accounts.
 - Add RBAC for current Azure user to put a file in on container
 - Create a logic app and use its Managed Identity to give RBAC Contributor rights on both storage accounts
 - Build a logic app workflow as per workflow.png to transfer files
@@ -37,4 +37,11 @@ az deployment group create --resource-group "rg-logic-apps-workshop" --template-
 ```bash
 az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "destination-storage.bicep"
 ```
+
+**Deploy third storage account:**
+```bash
+az deployment group create --resource-group "rg-logic-apps-workshop" --template-file "thirdacc003.bicep" --parameters storageAccountName="dddd"
+```
+
+> ℹ️ Storage account names must be globally unique, 3-24 characters, and lowercase letters or numbers only—replace the placeholder before running the command.
 
